@@ -14,24 +14,57 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// STARTER OF TODO LIST API
 
-app.MapGet("/weatherforecast", () =>
+// DTO the data transfer object for creating a TODO item
+record TodoItemDto
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+}
+// id and title
+record TodoItem
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+}
+// create the TODO list in memory
+var todoItems = new List<TodoItem>();
+var nextId = 1;
+
+// the TODO List item model
+
+// 1.add TODOs
+app.MapPost("/api/todos", (TodoItemDto dto) => {
+    var todo = new TodoItem { Id = nextId++, Title = dto.Title, Content = dto.Content };
+    todoItems.Add(todo);
+    return Results.Created($"/api/todos/{todo.Id}", todo);
+});
+
+// 2.delete TODO
+app.MapDelete("/api/todos/{id:int}", (int id) => {
+    // find the first matching TODO item by id
+    var todo = todoItems.FirstOrDefault(t => t.Id == id);
+    if (todo == null) return Results.NotFound();
+    todoItems.Remove(todo);
+    return Results.NoContent();
+});
+
+// 3.update TODO
+app.MapPut("/api/todos/{id:int}", (int id, TodoItemDto dto) => {
+    var todo = todoItems.FirstOrDefault(t => t.Id == id);
+    if (todo == null) return Results.NotFound();
+    todo.Title = dto.Title;
+    todo.Content = dto.Content;
+    return Results.Ok(todo);
+});
+
+// 4.Get all TODOs
+app.MapGet("/api/todos", () => Results.Ok(todoItems));
+
+// END OF TODO LIST API
+
 
 app.Run();
 
