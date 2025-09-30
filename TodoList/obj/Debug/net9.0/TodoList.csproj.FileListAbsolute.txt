@@ -31,3 +31,4 @@
 /Users/aarontao/Desktop/Global360Test/TodoList/obj/Debug/net9.0/TodoList.pdb
 /Users/aarontao/Desktop/Global360Test/TodoList/obj/Debug/net9.0/TodoList.genruntimeconfig.cache
 /Users/aarontao/Desktop/Global360Test/TodoList/obj/Debug/net9.0/ref/TodoList.dll
+/Users/aarontao/Desktop/Global360Test/TodoList/obj/Debug/net9.0/TodoList.sourcelink.json

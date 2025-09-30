@@ -16,19 +16,6 @@ app.UseHttpsRedirection();
 
 // STARTER OF TODO LIST API
 
-// DTO the data transfer object for creating a TODO item
-record TodoItemDto
-{
-    public string Title { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
-}
-// id and title
-record TodoItem
-{
-    public int Id { get; set; }
-    public string Title { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
-}
 // create the TODO list in memory
 var todoItems = new List<TodoItem>();
 var nextId = 1;
@@ -63,10 +50,24 @@ app.MapPut("/api/todos/{id:int}", (int id, TodoItemDto dto) => {
 // 4.Get all TODOs
 app.MapGet("/api/todos", () => Results.Ok(todoItems));
 
+
 // END OF TODO LIST API
 
-
 app.Run();
+
+// DTO the data transfer object for creating a TODO item
+record TodoItemDto
+{
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+}
+// id and title
+record TodoItem
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+}
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
