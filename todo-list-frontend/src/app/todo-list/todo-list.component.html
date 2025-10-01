@@ -1,1 +1,23 @@
-<p>todo-list works!</p>
+<!-- 添加新 TODO（始终显示在顶部） -->
+<div style="margin-bottom: 16px">
+  <input
+    [(ngModel)]="newTitle"
+    placeholder="请输入标题"
+    style="padding: 4px; width: 160px; margin-right: 8px" />
+  <input
+    [(ngModel)]="newContent"
+    placeholder="请输入内容"
+    style="padding: 4px; width: 220px; margin-right: 8px" />
+  <button (click)="addTodo()" style="padding: 4px 12px">添加</button>
+</div>
+
+<!-- TODO 列表展示 -->
+<ul>
+  <li *ngFor="let todo of todos">
+    <strong>{{ todo.title }}</strong
+    >：{{ todo.content }}
+    <button (click)="deleteTodo(todo.id)" style="margin-left: 12px">
+      删除
+    </button>
+  </li>
+</ul>
