@@ -21,63 +21,86 @@ Global360Test/
 - Node.js & npm
 - .NET 9 SDK
 
-## 搭建与运行
+# TODO List App
 
-### 后端
+A simple TODO list project based on Angular frontend and .NET backend, supporting viewing, adding, editing, deleting, and searching tasks.
+
+## Tech Stack
+
+- Frontend: Angular
+- Backend: .NET Web API (in-memory storage)
+- Testing: xUnit (backend), Jasmine/Karma (frontend)
+
+## Project Structure
+
+```
+Global360Test/
+├── todo-list-frontend/   # Angular frontend
+└── TodoList/            # .NET backend
+```
+
+## Prerequisites
+
+- Node.js & npm
+- .NET 9 SDK
+
+## Setup & Run
+
+### Backend
 
 ```sh
 cd TodoList
-# 运行后端 API
+# Run backend API
 dotnet run
 ```
 
-默认监听 http://localhost:5000 或 http://localhost:5187
+Default listens on http://localhost:5000 or http://localhost:5187
 
-### 前端
+### Frontend
 
 ```sh
 cd todo-list-frontend
 npm install
-# 启动前端
+# Start frontend
 npm start
 ```
 
-默认监听 http://localhost:4200
+Default listens on http://localhost:4200
 
-## 测试方法
+## Testing
 
-### 后端测试
+### Backend Test
 
 ```sh
 cd TodoList
 dotnet test
 ```
 
-### 前端测试
+### Frontend Test
 
 ```sh
 cd todo-list-frontend
 npm test
 ```
 
-## 主要功能
+## Main Features
 
-- 查看 TODO 列表
-- 添加、编辑、删除 TODO
-- 搜索 TODO
-- 基础单元测试
+- View TODO list
+- Add, edit, delete TODO
+- Search TODO
+- Basic unit tests
 
-## 说明
+## Notes
 
-- 后端为内存存储，重启后数据会丢失。
-- 前后端已做 CORS 配置，默认可直接联通。
+- Backend uses in-memory storage, data will be lost after restart.
+- CORS is configured, frontend and backend can connect directly by default.
 
-## 提交说明
+## Submission Instructions
 
-1. 整理代码，确保无冗余文件。
-2. 所有更改已提交到 git 仓库。
-3. 测试全部通过。
+1. Clean up code, ensure no redundant files.
+2. All changes are committed to the git repository.
+3. All tests pass.
 
 ---
 
-如有问题请联系作者。
+If you have any questions, please contact the author.
