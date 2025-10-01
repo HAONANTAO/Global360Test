@@ -14,10 +14,21 @@
 <!-- TODO 列表展示 -->
 <ul>
   <li *ngFor="let todo of todos">
-    <strong>{{ todo.title }}</strong
-    >：{{ todo.content }}
-    <button (click)="deleteTodo(todo.id)" style="margin-left: 12px">
-      删除
-    </button>
+    <ng-container *ngIf="editId !== todo.id; else editForm">
+      <strong>{{ todo.title }}</strong
+      >：{{ todo.content }}
+      <button (click)="startEdit(todo)" style="margin-left: 12px">编辑</button>
+      <button (click)="deleteTodo(todo.id)" style="margin-left: 8px">
+        删除
+      </button>
+    </ng-container>
+    <ng-template #editForm>
+      <input [(ngModel)]="editTitle" style="width: 120px; margin-right: 8px" />
+      <input
+        [(ngModel)]="editContent"
+        style="width: 180px; margin-right: 8px" />
+      <button (click)="saveEdit()" style="margin-right: 8px">保存</button>
+      <button (click)="cancelEdit()">取消</button>
+    </ng-template>
   </li>
 </ul>

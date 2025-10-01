@@ -13,6 +13,9 @@ export class TodoListComponent {
   todos: Todo[] = []
   newTitle = ''
   newContent = ''
+  editId: number | null = null
+  editTitle = ''
+  editContent = ''
 
   constructor(private todoService: TodoService) {}
 
@@ -39,5 +42,28 @@ export class TodoListComponent {
     this.todoService.deleteTodo(id).subscribe(() => {
       this.todos = this.todos.filter((t) => t.id !== id)
     })
+  }
+
+  startEdit(todo: Todo) {
+    this.editId = todo.id
+    this.editTitle = todo.title
+    this.editContent = todo.content
+  }
+
+  cancelEdit() {
+    this.editId = null
+    this.editTitle = ''
+    this.editContent = ''
+  }
+
+  saveEdit() {
+    if (this.editId === null) return
+    this.todoService
+      .updateTodo(this.editId, this.editTitle, this.editContent)
+      .subscribe((updated) => {
+        const idx = this.todos.findIndex((t) => t.id === this.editId)
+        if (idx > -1) this.todos[idx] = updated
+        this.cancelEdit()
+      })
   }
 }
