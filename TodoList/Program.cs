@@ -57,6 +57,16 @@ app.MapPut("/api/todos/{id:int}", (int id, TodoItemDto dto) => {
 // 4.Get all TODOs
 app.MapGet("/api/todos", () => Results.Ok(todoItems));
 
+// 5.Search TODOs by title or content 
+app.MapGet("/api/todos/search", (string q) => {
+    var keyword = q?.Trim().ToLower() ?? "";
+    var results = todoItems.Where(t =>
+        t.Title.ToLower().Contains(keyword) ||
+        t.Content.ToLower().Contains(keyword)
+    ).ToList();
+    return Results.Ok(results);
+});
+
 
 // END OF TODO LIST API
 

@@ -16,6 +16,17 @@ export class TodoListComponent {
   editId: number | null = null
   editTitle = ''
   editContent = ''
+  searchKeyword = ''
+  searchTodos() {
+    const keyword = this.searchKeyword.trim()
+    if (!keyword) {
+      this.loadTodos()
+      return
+    }
+    this.todoService.searchTodos(keyword).subscribe((todos) => {
+      this.todos = todos
+    })
+  }
 
   constructor(private todoService: TodoService) {}
 

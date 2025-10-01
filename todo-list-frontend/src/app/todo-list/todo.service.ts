@@ -30,4 +30,10 @@ export class TodoService {
   updateTodo(id: number, title: string, content: string): Observable<Todo> {
     return this.http.put<Todo>(`${this.apiUrl}/${id}`, { title, content })
   }
+
+  searchTodos(keyword: string): Observable<Todo[]> {
+    return this.http.get<Todo[]>(`${this.apiUrl}/search`, {
+      params: { q: keyword },
+    })
+  }
 }
